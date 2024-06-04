@@ -5,6 +5,7 @@ import yupSchema from './yupSchema';
 import axios from 'axios';
 import css from './Form.module.css';
 import Select from 'react-select';
+import FormTitle from './FormTiltle';
 
 const AddRecipeForm = () => {
   const {
@@ -98,13 +99,7 @@ const AddRecipeForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={css.form}>
-      <div>
-        <h1> Add recipe</h1>
-        <p>
-          Reveal your culinary art, share your favorite recipe and create
-          gastronomic masterpieces with us.
-        </p>
-      </div>
+      <FormTitle />
       <div className={css.formWraper}>
         <div className={css.uploadBox}>
           <label className={css.customUploadBtn}>
