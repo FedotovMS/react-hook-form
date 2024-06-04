@@ -1,17 +1,9 @@
 import AddRecipeForm from './Form/AddRecipeForm';
+import css from './App.module.css';
 
 export const App = () => {
   return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 18,
-        color: '#010101',
-      }}
-    >
+    <div className={css.container}>
       <AddRecipeForm />
     </div>
   );

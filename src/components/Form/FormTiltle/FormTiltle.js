@@ -1,8 +1,9 @@
+import css from './FormTiltle.module.css';
 const FormTitle = () => {
   return (
-    <div>
-      <h1> Add recipe</h1>
-      <p>
+    <div className={css.formTitleWrapper}>
+      <h1 className={css.formTitle}> Add recipe</h1>
+      <p className={css.fromDescription}>
         Reveal your culinary art, share your favorite recipe and create
         gastronomic masterpieces with us.
       </p>

@@ -17,7 +17,7 @@ const ImageUploader = ({
   };
 
   return (
-    <div>
+    <div className={css.uploadBox}>
       <label className={css.customUploadBtn}>
         <input
           type="file"
@@ -26,7 +26,7 @@ const ImageUploader = ({
         />
         {errors.image && <p>{errors.image.message}</p>}
         {imagePreview && <img src={imagePreview} alt="Recipe Preview" />}
-        Upload a photo
+        <span>Upload a photo</span>
       </label>
     </div>
   );
