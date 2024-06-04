@@ -10,6 +10,10 @@
   gap: 32px;
 }
 
+label {
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
 input[type='text']::placeholder {
   font-weight: 800;
   font-size: 18px;
@@ -34,6 +38,8 @@ input[type='text'] {
   box-sizing: border-box;
   font-size: 14px;
   outline: none;
+  resize: none;
+  overflow: hidden;
 }
 
 .decriptioArea::placeholder {
@@ -48,4 +54,10 @@ input[type='text'] {
   top: 0;
   right: 0;
   font-size: 14px;
+}
+
+.recipeData {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }

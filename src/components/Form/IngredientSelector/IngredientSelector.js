@@ -1,6 +1,7 @@
 import React from 'react';
 import Select from 'react-select';
 import { Controller } from 'react-hook-form';
+import css from './IngredientSelector.module.css';
 
 const IngredientSelector = ({
   control,
@@ -30,7 +31,7 @@ const IngredientSelector = ({
   };
 
   return (
-    <div>
+    <div className={css.container}>
       <div>
         <label>Ingredient</label>
         <Controller
