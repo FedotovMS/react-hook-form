@@ -1,4 +1,4 @@
-import AddRecipeForm from './Form/Form';
+import AddRecipeForm from './Form/AddRecipeForm';
 
 export const App = () => {
   return (

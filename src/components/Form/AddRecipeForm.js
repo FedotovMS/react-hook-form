@@ -6,6 +6,9 @@ import axios from 'axios';
 import css from './Form.module.css';
 import Select from 'react-select';
 import FormTitle from './FormTiltle';
+import CookingTimeCounter from './CookingTimeCounter';
+import ImageUploader from './ImageUploader';
+import IngredientSelector from './IngredientSelector';
 
 const AddRecipeForm = () => {
   const {
@@ -58,43 +61,10 @@ const AddRecipeForm = () => {
       });
   };
 
-  const addIngredient = () => {
-    const ingredient = watch('ingredient');
-    const quantity = watch('quantity');
-    if (ingredient && quantity) {
-      setSelectedIngredients([
-        ...selectedIngredients,
-        { name: ingredient, quantity },
-      ]);
-      setValue('ingredient', '');
-      setValue('quantity', '');
-    }
-  };
-
-  const removeIngredient = index => {
-    setSelectedIngredients(selectedIngredients.filter((_, i) => i !== index));
-  };
-
-  const handleImageChange = e => {
-    const file = e.target.files[0];
-    if (file) {
-      setImagePreview(URL.createObjectURL(file));
-      setValue('image', e.target.files);
-    }
-  };
-
   const handleReset = () => {
     reset();
     setImagePreview(null);
     setSelectedIngredients([]);
-  };
-
-  const incrementCookingTime = () => {
-    setCookingTime(prevTime => prevTime + 1);
-  };
-
-  const decrementCookingTime = () => {
-    setCookingTime(prevTime => (prevTime > 1 ? prevTime - 1 : 1));
   };
 
   return (
@@ -102,16 +72,13 @@ const AddRecipeForm = () => {
       <FormTitle />
       <div className={css.formWraper}>
         <div className={css.uploadBox}>
-          <label className={css.customUploadBtn}>
-            <input
-              type="file"
-              {...register('image')}
-              onChange={handleImageChange}
-            />
-            {errors.image && <p>{errors.image.message}</p>}
-            {imagePreview && <img src={imagePreview} alt="Recipe Preview" />}
-            Upload a photo
-          </label>
+          <ImageUploader
+            register={register}
+            setValue={setValue}
+            imagePreview={imagePreview}
+            setImagePreview={setImagePreview}
+            errors={errors}
+          />
         </div>
         <div className={css.formElements}>
           <div>
@@ -149,73 +116,22 @@ const AddRecipeForm = () => {
             {errors.category && <p>{errors.category.message}</p>}
           </div>
 
-          <div>
-            <label>Cooking Time (minutes)</label>
-            <div>
-              <button type="button" onClick={decrementCookingTime}>
-                -
-              </button>
-              <input
-                type="number"
-                {...register('cookingTime')}
-                value={cookingTime}
-                onChange={e =>
-                  setCookingTime(Math.max(1, parseInt(e.target.value)))
-                }
-                min="1"
-                readOnly
-                style={{ width: '50px', textAlign: 'center' }}
-              />
-              <span>min</span>
-              <button type="button" onClick={incrementCookingTime}>
-                +
-              </button>
-            </div>
-            {errors.cookingTime && <p>{errors.cookingTime.message}</p>}
-          </div>
+          <CookingTimeCounter
+            cookingTime={cookingTime}
+            setCookingTime={setCookingTime}
+          />
+          {errors.cookingTime && <p>{errors.cookingTime.message}</p>}
 
-          <div>
-            <label>Ingredient</label>
-            <Controller
-              name="ingredient"
-              control={control}
-              render={({ field }) => (
-                <Select
-                  {...field}
-                  options={ingredients}
-                  placeholder="Select an ingredient"
-                />
-              )}
-            />
-            {errors.ingredient && <p>{errors.ingredient.message}</p>}
-          </div>
-
-          <div>
-            <input
-              type="number"
-              {...register('quantity')}
-              placeholder="Enter quantity"
-            />
-            {errors.quantity && <p>{errors.quantity.message}</p>}
-          </div>
-
-          <button type="button" onClick={addIngredient}>
-            Add ingredient+
-          </button>
-
-          <div>
-            {selectedIngredients.map((ingredient, index) => (
-              <div key={index}>
-                <img src={ingredient.image} alt={ingredient.name} />
-                <p>
-                  {ingredient.name}: {ingredient.quantity}
-                </p>
-                <button type="button" onClick={() => removeIngredient(index)}>
-                  Remove
-                </button>
-              </div>
-            ))}
-          </div>
+          <IngredientSelector
+            control={control}
+            register={register}
+            setValue={setValue}
+            watch={watch}
+            ingredients={ingredients}
+            selectedIngredients={selectedIngredients}
+            setSelectedIngredients={setSelectedIngredients}
+            errors={errors}
+          />
 
           <div className={css.recipePreparation}>
             <label>Recipe preparation</label>
